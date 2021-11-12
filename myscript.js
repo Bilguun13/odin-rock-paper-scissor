@@ -31,6 +31,12 @@ function singleRound(computerSelection,userSelection) {
 }
 
 //3. Function for a 5 round of game, taking user input
+function game() {
     //loop for 5 round
+    for (let i = 0; i < 5; i++) {
         //each round prompt user input
+        let getInput = prompt("Enter your pick: ").toLowerCase();
         //and play singleRound
+        console.log(singleRound(computerPlay(),getInput));
+    }
+}
