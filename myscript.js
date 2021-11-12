@@ -1,8 +1,16 @@
 //1. Generate a cpu choice in a function called computerPlay
+function computerPlay() {
     //generate a number between 0 and 2
-
+    let random = Math.floor(Math.random() * 3)
     //for corresponding number, return: 0 = rock, 1 = paper, 2 = scissor
-
+    if (random == 0) {
+        return "rock";
+    }else if (random == 1){
+        return "paper"
+    }else{
+        return "scissor"
+    }
+}
 
 //2. Single round of game using above function and assuming to get user input
     //convert user input into lowercase
