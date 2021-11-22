@@ -20,44 +20,120 @@ function singleRound(computerSelection,userSelection) {
     userSelection = userSelection.toLowerCase();
     //use if function to compare user and cpu choices, also declare winner
     if (userSelection === computerSelection) {
-        return "Tie!"
+        return "The round is tie!"
     }else if (userSelection == "rock" && computerSelection == "scissor"){
-        userCount++
-        return `You win! Rock beats Paper`
+        userCount++;
+        return `You have won this round! Rock beats Paper 🥳`
     }else if (userSelection == "paper" && computerSelection == "rock"){
-        userCount++
-        return `You win! Paper beats Rock`
+        userCount++;
+        return `You have won this round! Paper beats Rock 👑`
     }else if (userSelection == "scissor" && computerSelection == "paper"){
-        userCount++
-        return `You win! Scissor beats Paper`
+        userCount++;
+        return `You have won this round! Scissor beats Paper 🥁`
     }else{
-        cpuCount++
-        return `You lose! ${computerSelection} beats ${userSelection}`
+        cpuCount++;
+        return `OOPS! You lost this round ... ${computerSelection} beats ${userSelection} 😓`
     }
 }
 
-//3. Function for a 5 round of game, taking user input
-function game() {
-    updateScore();
-    //loop for 5 round
-    for (let i = 0; i < 5; i++) {
-        //each round prompt user input
-        let getInput = prompt("Enter your pick: ").toLowerCase();
-        //and play singleRound
-        console.log("round " + (i + 1) + " : " + singleRound(computerPlay(),getInput));
-        console.log("User: " + userCount + " CPU: " + cpuCount)
-    }
-    declareWinner();
-}
 
 //updating score with singleRound return;
-function updateScore() {
+function resetScore() {
     userCount = 0
     cpuCount = 0;
 }
 
 function declareWinner() {
-    (userCount > cpuCount)? console.log("You win!") :
-    (userCount == cpuCount)? console.log("Tie") :
-    console.log("You lose :(")
+    const result = document.querySelector('#log');
+    if (userCount > cpuCount){
+        result.textContent = `You won the game! Press 'Start Again' to play again`
+        result.classList.add('won')
+    }else{
+        result.textContent = `You have lost the game :( Press 'Start Again' to get your revenge!`
+        result.classList.add('lost')
+    }
+}
+
+
+//Adding UI: idea - make it water theme and first one to reach 5 gets to breath
+const scope = document.querySelector('.choice')
+const btns = scope.querySelectorAll('button');
+
+btns.forEach((button) => {
+    //add a listener to every button
+    button.addEventListener('click', () => {
+        if (userCount === 5 || cpuCount ===5 ) {
+            return;
+        }
+        displayResult(button);
+        updateScore();
+        if (userCount === 5 || cpuCount === 5) {
+            declareWinner();
+            return;
+        }
+    })
+})
+//restart button:
+
+const restart = document.querySelector('#restart');
+
+restart.addEventListener('click', () => {
+    startNew();
+})
+
+//displaying result:
+function displayResult(button) {
+    const display = document.querySelector('#log');
+    display.textContent = singleRound(computerPlay(),button.id)
+}
+
+function updateScore() {
+    const userScore = document.querySelector('#user-score');
+    const cpuScore = document.querySelector('#cpu-score');
+
+    userScore.textContent = userCount;
+    cpuScore.textContent = cpuCount;
+}
+
+function startNew() {
+    resetScore();
+    updateScore()
+    const result = document.querySelector('#log');
+    result.classList.remove('won','lost')
+    result.textContent = 'Choose your hand'
+}
+
+
+//turn own choice to green color and computer choice to redish color
+function highlightChoice(computerSelection,userSelection) {
+    let userChoice = document.querySelector(`#${userSelection}`);
+
+    let computerChoice = document.querySelector(`#${computerSelection}`);
+
+    if (userSelection === computerSelection) {
+        userChoice.classList.add('tieChoice')
+    }else if (userSelection == "rock" && computerSelection == "scissor"){
+        computerChoice.classList.add('cpuChoice')
+        userSelection.classList.add('userChoice')
+    }else if (userSelection == "paper" && computerSelection == "rock"){
+        computerChoice.classList.add('cpuChoice')
+        userSelection.classList.add('userChoice')
+    }else if (userSelection == "scissor" && computerSelection == "paper"){
+        computerChoice.classList.add('cpuChoice')
+        userSelection.classList.add('userChoice')
+    }else{
+        computerChoice.classList.add('cpuChoice')
+        userSelection.classList.add('userChoice')
+    }
+}
+
+function removeHighlight() {
+    const rock = document.querySelector('#rock');
+    rock.classList.remove('cpuChoice');
+
+    const paper = document.querySelector('#paper');
+    paper.classList.remove('cpuChoice');    
+
+    const scissor = document.querySelector('#scissor');
+    scissor.classList.remove('cpuChoice');
 }

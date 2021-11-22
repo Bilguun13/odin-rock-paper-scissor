@@ -4,10 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="myscript.js"></script>
+    <script src="myscript.js" defer></script>
     <title>Rock Paper Scissor</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
+    <div class="main">
+        <h1>Rock Paper Scissor</h1>
+        <p>First to 5 points win the game</p>
+        <div class="choice">
+            <button id="rock">✊</button>
+            <button id="paper" >🖐️</button>
+            <button id="scissor">✌️</button>
+        </div>
+        <div class='score' id="result">Scoreboard:
+            <div>
+                <span> User:</span>
+                <span id="user-score">0</span>
+                <span> Computer:</span>
+                <span id="cpu-score">0</span>
+            </div>
+        </div>
+        <div id="log" class="neutral log"></div>
+        <div id="play-again">
+            <button id='restart'>Start Again</button>
+        </div>
+    </div>
+    <footer>Copyright</footer>
 </body>
 </html>
