@@ -18,9 +18,11 @@ function computerPlay() {
 function singleRound(computerSelection,userSelection) {
     //convert user input into lowercase
     userSelection = userSelection.toLowerCase();
+    //highlight the choices on UI
+    highlightChoice(computerSelection,userSelection);
     //use if function to compare user and cpu choices, also declare winner
     if (userSelection === computerSelection) {
-        return "The round is tie!"
+        return "The round is tie! No point for both 🎲"
     }else if (userSelection == "rock" && computerSelection == "scissor"){
         userCount++;
         return `You have won this round! Rock beats Paper 🥳`
@@ -46,10 +48,10 @@ function resetScore() {
 function declareWinner() {
     const result = document.querySelector('#log');
     if (userCount > cpuCount){
-        result.textContent = `You won the game! Press 'Start Again' to play again`
+        result.textContent = `You won the game 🥇! Press 'Start Again' to play again`
         result.classList.add('won')
     }else{
-        result.textContent = `You have lost the game :( Press 'Start Again' to get your revenge!`
+        result.textContent = `You have lost the game 🥈 Press 'Start Again' to get your revenge! 😉`
         result.classList.add('lost')
     }
 }
@@ -65,6 +67,7 @@ btns.forEach((button) => {
         if (userCount === 5 || cpuCount ===5 ) {
             return;
         }
+        removeHighlight();
         displayResult(button);
         updateScore();
         if (userCount === 5 || cpuCount === 5) {
@@ -106,34 +109,35 @@ function startNew() {
 
 //turn own choice to green color and computer choice to redish color
 function highlightChoice(computerSelection,userSelection) {
-    let userChoice = document.querySelector(`#${userSelection}`);
-
-    let computerChoice = document.querySelector(`#${computerSelection}`);
-
-    if (userSelection === computerSelection) {
-        userChoice.classList.add('tieChoice')
+    const userselect = document.querySelector(`#${userSelection}`)
+    const cpuselect = document.querySelector(`#${computerSelection}`)
+    if (computerSelection === userSelection){
+        userselect.classList.add('tieChoice');
     }else if (userSelection == "rock" && computerSelection == "scissor"){
-        computerChoice.classList.add('cpuChoice')
-        userSelection.classList.add('userChoice')
+        cpuselect.classList.add('lostChoice')
+        userselect.classList.add('wonChoice')
     }else if (userSelection == "paper" && computerSelection == "rock"){
-        computerChoice.classList.add('cpuChoice')
-        userSelection.classList.add('userChoice')
+        cpuselect.classList.add('lostChoice')
+        userselect.classList.add('wonChoice')
     }else if (userSelection == "scissor" && computerSelection == "paper"){
-        computerChoice.classList.add('cpuChoice')
-        userSelection.classList.add('userChoice')
+        cpuselect.classList.add('lostChoice')
+        userselect.classList.add('wonChoice')
     }else{
-        computerChoice.classList.add('cpuChoice')
-        userSelection.classList.add('userChoice')
+        cpuselect.classList.add('wonChoice')
+        userselect.classList.add('lostChoice')
     }
 }
 
 function removeHighlight() {
     const rock = document.querySelector('#rock');
-    rock.classList.remove('cpuChoice');
+    rock.classList.remove('wonChoice','lostChoice','tieChoice');
 
     const paper = document.querySelector('#paper');
-    paper.classList.remove('cpuChoice');    
+    paper.classList.remove('wonChoice','lostChoice','tieChoice');    
 
     const scissor = document.querySelector('#scissor');
-    scissor.classList.remove('cpuChoice');
+    scissor.classList.remove('wonChoice','lostChoice','tieChoice');
+
 }
+
+//how about winners being green???

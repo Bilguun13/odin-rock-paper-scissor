@@ -20,7 +20,7 @@ body {
 
 .choice button {
     width: auto;
-    font-size: 100px
+    font-size: 100px;
 }
 
 .score {
@@ -47,14 +47,14 @@ body {
 
 }
 
-.userChoice {
-    background-color: seagreen;
+.wonChoice {
+    background-color: rgb(187, 254, 216);
 }
 
-.cpuChoice {
-    background-color: red;
+.lostChoice {
+    background-color: rgb(252, 192, 192);
 }
 
 .tieChoice {
-
+    background-color: rgb(181, 181, 247);
 }
