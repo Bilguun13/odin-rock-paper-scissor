@@ -58,3 +58,16 @@ body {
 .tieChoice {
     background-color: rgb(181, 181, 247);
 }
+
+.logo {
+    border-radius: 20px;
+    width: auto;
+    height: 15px;
+    margin-left: 5px
+}
+
+.copyright:any-link {
+    text-decoration: none;
+    color: black;
+}
+
