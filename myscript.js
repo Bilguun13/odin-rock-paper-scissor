@@ -82,6 +82,7 @@ const restart = document.querySelector('#restart');
 
 restart.addEventListener('click', () => {
     startNew();
+    removeHighlight();
 })
 
 //displaying result:
